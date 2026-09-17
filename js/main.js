@@ -6,6 +6,8 @@
 (function () {
   "use strict";
 
+  var SHOWDATAS = false;
+
   /* ---- Footer year --------------------------------------------------- */
   var yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
@@ -69,24 +71,30 @@
     "in-progress": "In progress"
   };
 
-  function projectCard(project) {
+  function projectCard(project, showData) {
     var article = document.createElement("article");
     article.className = "project-card reveal";
-
-    var statusClass = project.status === "in-progress" ? "status status--progress" : "status";
-    var statusText = STATUS_LABEL[project.status] || project.status;
 
     article.innerHTML =
       '<div class="project-card__frame">' +
         '<img src="' + project.image + '" alt="' + project.name + ', ' + project.type.toLowerCase() + ' in ' + project.location + '" loading="lazy">' +
-      "</div>" +
-      '<div class="project-card__info">' +
-        "<div>" +
-          '<h3 class="project-card__name">' + project.name + "</h3>" +
-          '<p class="project-card__meta">' + project.location + " &middot; " + project.type + "</p>" +
-        "</div>" +
-        '<span class="' + statusClass + '">' + statusText + "</span>" +
       "</div>";
+
+    if (showData) {
+      var statusClass = project.status === "in-progress" ? "status status--progress" : "status";
+      var statusText = STATUS_LABEL[project.status] || project.status;
+
+      article.insertAdjacentHTML(
+        "beforeend",
+        '<div class="project-card__info">' +
+          "<div>" +
+            '<h3 class="project-card__name">' + project.name + "</h3>" +
+            '<p class="project-card__meta">' + project.location + " &middot; " + project.type + "</p>" +
+          "</div>" +
+          '<span class="' + statusClass + '">' + statusText + "</span>" +
+        "</div>"
+      );
+    }
 
     return article;
   }
@@ -94,8 +102,11 @@
   function renderInto(containerId, list) {
     var container = document.getElementById(containerId);
     if (!container || typeof PROJECTS === "undefined") return;
+    var isProjectsPage = containerId === "currentProjects" || containerId === "completedProjects";
+    var showData = !isProjectsPage || SHOWDATAS;
+
     list.forEach(function (project) {
-      container.appendChild(projectCard(project));
+      container.appendChild(projectCard(project, showData));
     });
   }
 
@@ -106,6 +117,32 @@
     // Projects page: split by status
     renderInto("currentProjects", PROJECTS.filter(function (p) { return p.status === "in-progress"; }));
     renderInto("completedProjects", PROJECTS.filter(function (p) { return p.status === "completed"; }));
+  }
+
+  /* ---- Background preload for non-featured project images ---------------- */
+  function preloadOtherProjectImages() {
+    if (typeof PROJECTS === "undefined" || !document.getElementById("featuredProjects")) return;
+
+    PROJECTS
+      .filter(function (project) { return !project.featured; })
+      .forEach(function (project) {
+        var image = new Image();
+        image.src = project.image;
+      });
+  }
+
+  function scheduleProjectPreload() {
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(preloadOtherProjectImages, { timeout: 1500 });
+    } else {
+      window.setTimeout(preloadOtherProjectImages, 1500);
+    }
+  }
+
+  if (document.readyState === "complete") {
+    scheduleProjectPreload();
+  } else {
+    window.addEventListener("load", scheduleProjectPreload);
   }
 
   // Let the animation module know new .reveal elements may have been added.

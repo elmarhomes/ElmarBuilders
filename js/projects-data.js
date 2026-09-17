@@ -16,20 +16,20 @@
 
 const PROJECTS = [
   {
-    name: "< name.......>",
-    location: "< location.......>",
-    type: " area",
+    name: "Villas at Thripunithara",
+    location: "Thripunithara, Kerala",
+    type: "Residential",
     status: "current",
     featured: true,
-    image: "assets/8.jpg"
+    image: "assets/8.webp"
   },
   {
-    name: "< name.......>",
-    location: "< location.......>",
-    type: " area",
+    name: "Apartment at Ernakulam",
+    location: "Ernakulam, Kerala",
+    type: "Residential",
     status: "current",
     featured: true,
-    image: "assets/9.jpg"
+    image: "assets/9.webp"
   },
 
 
@@ -39,7 +39,7 @@ const PROJECTS = [
     type: " area",
     status: "completed",
     featured: false,
-    image: "assets/1n.jpeg"
+    image: "assets/1n.webp"
   },
     {
     name: "< name.......>",
@@ -47,7 +47,7 @@ const PROJECTS = [
     type: " area",
     status: "completed",
     featured: false,
-    image: "assets/2.jpg"
+    image: "assets/2.webp"
   },
     {
     name: "< name.......>",
@@ -55,7 +55,7 @@ const PROJECTS = [
     type: " area",
     status: "completed",
     featured: false,
-    image: "assets/3.jpg"
+    image: "assets/3.webp"
   },
     {
     name: "< name.......>",
@@ -63,14 +63,14 @@ const PROJECTS = [
     type: " area",
     status: "completed",
     featured: false,
-    image: "assets/15.jpeg"
+    image: "assets/15.webp"
   },  {
     name: "< name.......>",
     location: "< location.......>",
     type: " area",
     status: "completed",
     featured: false,
-    image: "assets/16.jpeg"
+    image: "assets/16.webp"
   },
     {
     name: "< name.......>",
@@ -78,7 +78,7 @@ const PROJECTS = [
     type: " area",
     status: "completed",
     featured: false,
-    image: "assets/17.jpeg"
+    image: "assets/17.webp"
   },
 
   {
@@ -87,7 +87,7 @@ const PROJECTS = [
     type: " area",
     status: "in-progress",
     featured: false,
-    image: "assets/10.jpg"
+    image: "assets/10.webp"
   },
     {
     name: "< name.......>",
@@ -95,7 +95,7 @@ const PROJECTS = [
     type: " area",
     status: "in-progress",
     featured: false,
-    image: "assets/11.jpg"
+    image: "assets/11.webp"
   },
     {
     name: "< name.......>",
@@ -103,6 +103,6 @@ const PROJECTS = [
     type: " area",
     status: "in-progress",
     featured: false,
-    image: "assets/12.jpg"
+    image: "assets/12.webp"
   }
 ];
